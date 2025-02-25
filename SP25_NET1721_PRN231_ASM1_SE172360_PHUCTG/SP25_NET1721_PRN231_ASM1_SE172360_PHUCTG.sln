@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.API", "VaccinaCare.API\VaccinaCare.API.csproj", "{64B2BC5E-87BD-45C8-BF2A-F42E6E9FFB25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.RazorWebApp", "VaccinaCare.RazorWebApp\VaccinaCare.RazorWebApp.csproj", "{A05F810B-A622-4D76-93C1-DCAA7B2C03B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{64B2BC5E-87BD-45C8-BF2A-F42E6E9FFB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B2BC5E-87BD-45C8-BF2A-F42E6E9FFB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B2BC5E-87BD-45C8-BF2A-F42E6E9FFB25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A05F810B-A622-4D76-93C1-DCAA7B2C03B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A05F810B-A622-4D76-93C1-DCAA7B2C03B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A05F810B-A622-4D76-93C1-DCAA7B2C03B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A05F810B-A622-4D76-93C1-DCAA7B2C03B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
