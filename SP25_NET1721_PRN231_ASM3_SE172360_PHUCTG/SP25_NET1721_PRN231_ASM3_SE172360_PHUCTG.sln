@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Domain", "..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Domain\VaccinaCare.Domain.csproj", "{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Service", "..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Service\VaccinaCare.Service.csproj", "{2B6CDD62-BD9B-8134-9666-0BA038F75E7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Repository", "..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Repository\VaccinaCare.Repository.csproj", "{2B152937-1F8B-362A-DA00-3AAA2616ADBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.BlazorApp.APIService", "VaccinaCare.BlazorApp.APIService\VaccinaCare.BlazorApp.APIService.csproj", "{7145DDB8-0C1E-4D59-8E74-064F5DF491B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.BlazorApp.Client", "VaccinaCare.BlazorApp.Client\VaccinaCare.BlazorApp.Client.csproj", "{ED6A1BE5-4686-4443-B60A-040662BE6596}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B6CDD62-BD9B-8134-9666-0BA038F75E7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B6CDD62-BD9B-8134-9666-0BA038F75E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B6CDD62-BD9B-8134-9666-0BA038F75E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B6CDD62-BD9B-8134-9666-0BA038F75E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7145DDB8-0C1E-4D59-8E74-064F5DF491B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7145DDB8-0C1E-4D59-8E74-064F5DF491B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7145DDB8-0C1E-4D59-8E74-064F5DF491B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7145DDB8-0C1E-4D59-8E74-064F5DF491B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED6A1BE5-4686-4443-B60A-040662BE6596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6A1BE5-4686-4443-B60A-040662BE6596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6A1BE5-4686-4443-B60A-040662BE6596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6A1BE5-4686-4443-B60A-040662BE6596}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3FAD1BC-F32B-4015-BEDA-35022A3AA1AD}
+	EndGlobalSection
+EndGlobal

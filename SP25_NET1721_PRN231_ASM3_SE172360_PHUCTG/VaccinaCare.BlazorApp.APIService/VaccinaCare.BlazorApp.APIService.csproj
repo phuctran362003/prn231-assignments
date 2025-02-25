@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Service\VaccinaCare.Service.csproj" />
+  </ItemGroup>
+
+</Project>
