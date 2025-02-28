@@ -31,6 +31,17 @@ builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddHttpContextAccessor();
 
+var corsPolicy = "AllowAllOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(corsPolicy,
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
+builder.Services.AddControllers();
 
 
 // Load configuration
@@ -56,6 +67,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.UseCors(corsPolicy);
 
 app.MapBlazorHub();
 app.MapControllers();

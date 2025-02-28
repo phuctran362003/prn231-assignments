@@ -53,20 +53,55 @@ namespace VaccinaCare.BlazorApp.APIService.Controllers
 
         private async Task<List<Feedback>> SeedFeedbacks()
         {
+            // Ensure FeedbackTypes exist before seeding Feedbacks
+            var feedbackTypes = await _context.FeedbackTypes.ToListAsync();
+
+            if (!feedbackTypes.Any())
+            {
+                feedbackTypes = new List<FeedbackType>
+        {
+            new FeedbackType { Id = Guid.NewGuid(), Name = "Positive" },
+            new FeedbackType { Id = Guid.NewGuid(), Name = "Negative" },
+            new FeedbackType { Id = Guid.NewGuid(), Name = "Neutral" }
+        };
+
+                await _context.FeedbackTypes.AddRangeAsync(feedbackTypes);
+                await _context.SaveChangesAsync();
+            }
+
+            var positiveTypeId = feedbackTypes.FirstOrDefault(ft => ft.Name == "Positive")?.Id ?? Guid.NewGuid();
+            var negativeTypeId = feedbackTypes.FirstOrDefault(ft => ft.Name == "Negative")?.Id ?? Guid.NewGuid();
+            var neutralTypeId = feedbackTypes.FirstOrDefault(ft => ft.Name == "Neutral")?.Id ?? Guid.NewGuid();
+
             var feedbacks = new List<Feedback>
     {
-        new Feedback { AppointmentId = Guid.NewGuid(), Rating = 5, Comments = "Excellent service!" },
-        new Feedback { AppointmentId = Guid.NewGuid(), Rating = 4, Comments = "Good experience." },
-        new Feedback { AppointmentId = Guid.NewGuid(), Rating = 3, Comments = "Average, could be better." },
-        new Feedback { AppointmentId = Guid.NewGuid(), Rating = 2, Comments = "Not satisfied with the service." },
-        new Feedback { AppointmentId = Guid.NewGuid(), Rating = 1, Comments = "Very poor experience." }
+        new Feedback
+        {
+            Rating = 5,
+            Comments = "Great service!",
+            FeedbackTypeId = positiveTypeId
+        },
+        new Feedback
+        {
+            Rating = 2,
+            Comments = "Not satisfied with the service.",
+            FeedbackTypeId = negativeTypeId
+        },
+        new Feedback
+        {
+            Rating = 3,
+            Comments = "It was okay.",
+            FeedbackTypeId = neutralTypeId
+        }
     };
 
-            await _context.AddRangeAsync(feedbacks);
+            await _context.Feedbacks.AddRangeAsync(feedbacks);
             await _context.SaveChangesAsync();
 
             return feedbacks;
         }
+
+
 
         private async Task ClearDatabase(VaccinaCareDbContext context)
         {

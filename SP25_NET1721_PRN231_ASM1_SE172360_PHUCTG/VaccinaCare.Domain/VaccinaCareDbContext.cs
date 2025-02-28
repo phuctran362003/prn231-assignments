@@ -23,6 +23,8 @@ public partial class VaccinaCareDbContext : DbContext
     public virtual DbSet<CancellationPolicy> CancellationPolicies { get; set; }
     public virtual DbSet<Child> Children { get; set; }
     public virtual DbSet<Feedback> Feedbacks { get; set; }
+    public virtual DbSet<FeedbackType> FeedbackTypes { get; set; }
+
     public virtual DbSet<VaccineIntervalRules> VaccineIntervalRules { get; set; }
 
     public virtual DbSet<Invoice> Invoices { get; set; }
@@ -118,11 +120,6 @@ public partial class VaccinaCareDbContext : DbContext
                 .HasForeignKey(e => e.PolicyId) // Khóa ngoại PolicyId trong Appointment
                 .OnDelete(DeleteBehavior.Restrict); // Không xóa Appointment khi xóa Policy (tùy chọn)
 
-            entity.HasMany(a => a.Feedbacks) // Một Appointment có nhiều Feedback
-                .WithOne(f => f.Appointment) // Một Feedback thuộc về một Appointment
-                .HasForeignKey(f => f.AppointmentId) // Khóa ngoại AppointmentId
-                .OnDelete(DeleteBehavior.Cascade); // Xóa Feedback khi xóa Appointment
-
             entity.HasOne(a => a.Child) // Một Appointment thuộc về một Child
                 .WithMany(c => c.Appointments) // Một Child có nhiều Appointment
                 .HasForeignKey(a => a.ChildId) // Khóa ngoại ChildId trong Appointment
@@ -161,7 +158,7 @@ public partial class VaccinaCareDbContext : DbContext
             .Property(a => a.VaccineType)
             .HasConversion<string>()
             .HasMaxLength(50);
-        
+
         modelBuilder.Entity<AppointmentVaccineSuggestions>()
             .HasKey(av => new { av.AppointmentId, av.VaccineSuggestionId });
 

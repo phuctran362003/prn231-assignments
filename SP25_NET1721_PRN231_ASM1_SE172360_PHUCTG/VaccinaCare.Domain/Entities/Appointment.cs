@@ -20,8 +20,6 @@ public class Appointment : BaseEntity
     public virtual ICollection<AppointmentsVaccine> AppointmentsVaccines { get; set; } = new List<AppointmentsVaccine>();
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-    
     public virtual ICollection<AppointmentVaccineSuggestions> AppointmentVaccineSuggestions { get; set; } = new List<AppointmentVaccineSuggestions>();
 }
 

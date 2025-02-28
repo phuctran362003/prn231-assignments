@@ -1,0 +1,71 @@
+﻿@page "/feedbacks"
+
+<h3>Feedback List</h3>
+
+@if (feedbacks == null)
+{
+    <p>Loading feedbacks...</p>
+}
+else if (!feedbacks.Any())
+{
+    <p>No feedbacks available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Comments</th>
+                <th>Feedback Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var feedback in feedbacks)
+            {
+                <tr>
+                    <td>@feedback.Rating</td>
+                    <td>@feedback.Comments</td>
+                    <td>@feedback.FeedbackTypeName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<FeedbackDto>? feedbacks;
+    private string message = "Loading feedbacks...";
+
+    public class FeedbackDto
+    {
+        public int Rating { get; set; }
+        public string? Comments { get; set; }
+        public string? FeedbackTypeName { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync("api/Feedbacks");
+
+            if (response.IsSuccessStatusCode)
+            {
+                feedbacks = await response.Content.ReadFromJsonAsync<List<FeedbackDto>>();
+                message = feedbacks?.Any() == true ? "Data loaded successfully!" : "No feedbacks available.";
+            }
+            else
+            {
+                message = $"Failed to fetch data: {response.StatusCode}";
+            }
+        }
+        catch (Exception ex)
+        {
+            message = "Error fetching feedbacks.";
+            Console.WriteLine($"Error fetching feedbacks: {ex.Message}");
+        }
+    }
+
+    [Inject] private HttpClient Http { get; set; } = default!;
+}
