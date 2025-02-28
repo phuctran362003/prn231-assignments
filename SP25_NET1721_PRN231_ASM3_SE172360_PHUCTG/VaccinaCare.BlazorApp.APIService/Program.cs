@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using VaccinaCare.Application.Interface;
+using VaccinaCare.Application.Interface.Common;
+using VaccinaCare.Application.Service;
+using VaccinaCare.Application.Service.Common;
 using VaccinaCare.BlazorApp.APIService.Components;
 using VaccinaCare.Domain;
 using VaccinaCare.Repository;
 using VaccinaCare.Repository.Commons;
 using VaccinaCare.Repository.Interfaces;
 using VaccinaCare.Repository.Repositories;
-using VaccinaCare.Service.Interface;
-using VaccinaCare.Service.Interface.Common;
-using VaccinaCare.Service.Service;
-using VaccinaCare.Service.Service.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +23,11 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
     opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
 }
 );
-builder.Services.AddScoped<IVaccineService, VaccineService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICurrentTime, CurrentTime>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddHttpContextAccessor();
 
@@ -41,12 +41,6 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
 // Configure DbContext
 builder.Services.AddDbContext<VaccinaCareDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
-
-
-
-
 
 var app = builder.Build();
 

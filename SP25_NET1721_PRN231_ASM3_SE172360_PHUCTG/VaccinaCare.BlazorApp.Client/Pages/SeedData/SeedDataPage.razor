@@ -1,0 +1,31 @@
+﻿@page "/seed-data"
+<h3>Seed Data Page</h3>
+
+<p>@message</p>
+<button @onclick="SeedData">Seed Data</button>
+
+@code {
+    private string message = "Click button to seed data.";
+
+    private async Task SeedData()
+    {
+        try
+        {
+            var response = await Http.PostAsync("api/system/seed-all-data", null);
+            if (response.IsSuccessStatusCode)
+            {
+                message = "Data seeded successfully!";
+            }
+            else
+            {
+                message = $"Failed to seed data: {response.StatusCode}";
+            }
+        }
+        catch (Exception ex)
+        {
+            message = $"Error: {ex.Message}";
+        }
+    }
+
+    [Inject] private HttpClient Http { get; set; }
+}
