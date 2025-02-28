@@ -28,5 +28,24 @@ namespace VaccinaCare.BlazorApp.APIService.Controllers
                 return StatusCode(500, "An error occurred while fetching feedbacks. Please try again later.");
             }
         }
+
+        // GET: api/Feedbacks/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFeedbackDetail(Guid id)
+        {
+            try
+            {
+                var feedback = await _feedbackService.GetFeedbackDetails(id);
+                if (feedback == null)
+                {
+                    return NotFound("Feedback not found.");
+                }
+                return Ok(feedback);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while fetching the feedback details. Please try again later.");
+            }
+        }
     }
 }

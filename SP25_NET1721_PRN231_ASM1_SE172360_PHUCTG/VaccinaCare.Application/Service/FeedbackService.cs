@@ -21,13 +21,16 @@ namespace VaccinaCare.Application.Service
         {
             try
             {
-                var feedbacks = await _unitOfWork.FeedbackRepository.GetAllAsync();
+                // Include FeedbackType in the query
+                var feedbacks = await _unitOfWork.FeedbackRepository.GetAllAsync(
+                    includes: f => f.FeedbackType
+                );
 
                 var feedbackDtos = feedbacks.Select(feedback => new FeedbackDto
                 {
-
                     Rating = feedback.Rating.GetValueOrDefault(),
-                    Comments = feedback.Comments
+                    Comments = feedback.Comments,
+                    FeedbackTypeName = feedback.FeedbackType?.Name // Get FeedbackType Name
                 }).ToList();
 
                 return feedbackDtos;
@@ -35,9 +38,39 @@ namespace VaccinaCare.Application.Service
             catch (Exception ex)
             {
                 _logger.Error($"Error while fetching feedbacks: {ex.Message}");
-                throw new Exception("An error occurred while fetching feedbacks. Please try again later");
+                throw new Exception("An error occurred while fetching feedbacks. Please try again later.");
             }
         }
+
+
+        public async Task<FeedbackDto> GetFeedbackDetails(Guid id)
+        {
+            try
+            {
+                // Include FeedbackType in the query
+                var feedback = await _unitOfWork.FeedbackRepository.GetByIdAsync(id, f => f.FeedbackType);
+
+                if (feedback == null)
+                {
+                    throw new Exception("Feedback not found");
+                }
+
+                var feedbackDto = new FeedbackDto
+                {
+                    Rating = feedback.Rating.GetValueOrDefault(),
+                    Comments = feedback.Comments,
+                    FeedbackTypeName = feedback.FeedbackType?.Name // Include FeedbackType Name
+                };
+
+                return feedbackDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Error while fetching feedback details: {ex.Message}");
+                throw new Exception("An error occurred while fetching feedback details. Please try again later.");
+            }
+        }
+
 
 
 
