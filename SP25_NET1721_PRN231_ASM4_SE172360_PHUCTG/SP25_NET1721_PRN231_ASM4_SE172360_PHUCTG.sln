@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Application", "..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Application\VaccinaCare.Application.csproj", "{3ABBD4B8-1E97-705E-0FC0-5E32145CA1B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Repository", "..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Repository\VaccinaCare.Repository.csproj", "{2B152937-1F8B-362A-DA00-3AAA2616ADBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Domain", "..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Domain\VaccinaCare.Domain.csproj", "{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.GraphQLApiService", "VaccinaCare.GraphQLApiService\VaccinaCare.GraphQLApiService.csproj", "{AB7268E9-6C45-41EC-AFE0-A7968BDE7942}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3ABBD4B8-1E97-705E-0FC0-5E32145CA1B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABBD4B8-1E97-705E-0FC0-5E32145CA1B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABBD4B8-1E97-705E-0FC0-5E32145CA1B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABBD4B8-1E97-705E-0FC0-5E32145CA1B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B152937-1F8B-362A-DA00-3AAA2616ADBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59314A9-BFD6-6EA1-894B-5D3D10BF5A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB7268E9-6C45-41EC-AFE0-A7968BDE7942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7268E9-6C45-41EC-AFE0-A7968BDE7942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7268E9-6C45-41EC-AFE0-A7968BDE7942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7268E9-6C45-41EC-AFE0-A7968BDE7942}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5A3596E-2FC0-40D4-9982-505DA6D1F9DE}
+	EndGlobalSection
+EndGlobal

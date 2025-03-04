@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using VaccinaCare.API.Resolvers;
 using VaccinaCare.Application.Interface;
 using VaccinaCare.Application.Interface.Common;
 using VaccinaCare.Application.Service;
 using VaccinaCare.Application.Service.Common;
 using VaccinaCare.Domain;
+using VaccinaCare.GraphQLApiService.Resolvers;
 using VaccinaCare.Repository;
 using VaccinaCare.Repository.Commons;
 using VaccinaCare.Repository.Interfaces;
@@ -27,7 +29,10 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 );
 
 builder.Services.AddScoped<IVaccineService, VaccineService>();
-//builder.Services.AddGraphQLServer().AddQueryType<Query>();
+builder.Services.AddGraphQLServer()
+    .AddQueryType<Query>()
+    .AddMutationType<Mutation>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICurrentTime, CurrentTime>();
@@ -58,7 +63,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
+app
+       .UseRouting()
+       .UseEndpoints(endpoints =>
+       {
+           endpoints.MapGraphQL();
+       });
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

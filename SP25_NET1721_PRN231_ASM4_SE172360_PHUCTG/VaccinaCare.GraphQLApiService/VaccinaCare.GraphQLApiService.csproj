@@ -9,11 +9,15 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="15.0.3" />
     <PackageReference Include="HotChocolate.Data" Version="15.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VaccinaCare.Application\VaccinaCare.Application.csproj" />
+    <ProjectReference Include="..\..\SP25_NET1721_PRN231_ASM1_SE172360_PHUCTG\VaccinaCare.Application\VaccinaCare.Application.csproj" />
   </ItemGroup>
 
 </Project>
