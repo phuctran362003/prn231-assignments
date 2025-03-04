@@ -4,196 +4,119 @@ using VaccinaCare.Domain;
 using VaccinaCare.Domain.Entities;
 using VaccinaCare.Repository.Interfaces;
 
-namespace VaccinaCare.Repository.Repositories
+public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    private readonly IDbContextFactory<VaccinaCareDbContext> _dbContextFactory;
+    private readonly ICurrentTime _timeService;
+    private readonly IClaimsService _claimsService;
+
+    public GenericRepository(IDbContextFactory<VaccinaCareDbContext> dbContextFactory,
+                             ICurrentTime timeService,
+                             IClaimsService claimsService)
     {
-        private readonly DbSet<TEntity> _dbSet;
-        private readonly VaccinaCareDbContext _dbContext;
-        private readonly ICurrentTime _timeService;
-        private readonly IClaimsService _claimsService;
+        _dbContextFactory = dbContextFactory;
+        _timeService = timeService;
+        _claimsService = claimsService;
+    }
 
-        public GenericRepository(VaccinaCareDbContext context, ICurrentTime timeService, IClaimsService claimsService)
+    /// <summary>
+    /// Thêm một thực thể vào database
+    /// </summary>
+    public async Task<TEntity> AddAsync(TEntity entity)
+    {
+        await using var context = _dbContextFactory.CreateDbContext();
+
+        entity.CreatedAt = _timeService.GetCurrentTime();
+        entity.CreatedBy = _claimsService.GetCurrentUserId;
+
+        var result = await context.Set<TEntity>().AddAsync(entity);
+        await context.SaveChangesAsync();
+
+        return result.Entity;
+    }
+
+    /// <summary>
+    /// Lấy tất cả thực thể với tùy chọn include
+    /// </summary>
+    public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null,
+                                                 params Expression<Func<TEntity, object>>[] includes)
+    {
+        await using var context = _dbContextFactory.CreateDbContext();
+        IQueryable<TEntity> query = context.Set<TEntity>();
+
+        foreach (var include in includes)
         {
-            _dbSet = context.Set<TEntity>();
-            _dbContext = context;
-            _timeService = timeService;
-            _claimsService = claimsService;
+            query = query.Include(include);
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        if (predicate != null)
         {
-            try
-            {
-                entity.CreatedAt = _timeService.GetCurrentTime();
-                //var user = await _dbContext.Users.FindAsync(_claimsService.GetCurrentUserId);
-                //if (user == null) throw new Exception("This user is no longer existed");
-                entity.CreatedBy = _claimsService.GetCurrentUserId;
-                var result = await _dbSet.AddAsync(entity);
-                //await _dbContext.SaveChangesAsync();
-                return result.Entity;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            query = query.Where(predicate);
         }
 
-        // riêng hàm này đã sửa để adapt theo Unit Of Work
-        public async Task AddRangeAsync(List<TEntity> entities)
+        return await query.ToListAsync();
+    }
+
+    /// <summary>
+    /// Lấy thực thể theo ID
+    /// </summary>
+    public async Task<TEntity?> GetByIdAsync(Guid id, params Expression<Func<TEntity, object>>[] includes)
+    {
+        await using var context = _dbContextFactory.CreateDbContext();
+        IQueryable<TEntity> query = context.Set<TEntity>();
+
+        foreach (var include in includes)
         {
-            foreach (var entity in entities)
-            {
-                entity.CreatedAt = _timeService.GetCurrentTime();
-                entity.CreatedBy = _claimsService.GetCurrentUserId;
-            }
-            await _dbSet.AddRangeAsync(entities);
+            query = query.Include(include);
         }
 
-        public Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includes)
-        {
-            IQueryable<TEntity> query = _dbSet;
+        return await query.FirstOrDefaultAsync(x => x.Id == id);
+    }
 
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
+    /// <summary>
+    /// Cập nhật thực thể
+    /// </summary>
+    public async Task<bool> UpdateAsync(TEntity entity)
+    {
+        await using var context = _dbContextFactory.CreateDbContext();
 
-            return query.ToListAsync();
-        }
+        entity.UpdatedAt = _timeService.GetCurrentTime();
+        entity.UpdatedBy = _claimsService.GetCurrentUserId;
 
-        public async Task<TEntity?> GetByIdAsync(Guid id, params Expression<Func<TEntity, object>>[] includes)
-        {
-            IQueryable<TEntity> query = _dbSet;
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-            var result = await query.FirstOrDefaultAsync(x => x.Id == id);
-            return result;
-        }
+        context.Set<TEntity>().Update(entity);
+        await context.SaveChangesAsync();
 
-        public async Task<bool> SoftRemove(TEntity entity)
-        {
-            entity.IsDeleted = true;
-            entity.DeletedAt = _timeService.GetCurrentTime();
-            entity.DeletedBy = _claimsService.GetCurrentUserId;
-            entity.UpdatedAt = _timeService.GetCurrentTime();
+        return true;
+    }
 
-            _dbSet.Update(entity);
-            // await _dbContext.SaveChangesAsync();
-            return true;
-        }
+    /// <summary>
+    /// Xóa mềm thực thể
+    /// </summary>
+    public async Task<bool> SoftRemoveAsync(TEntity entity)
+    {
+        await using var context = _dbContextFactory.CreateDbContext();
 
-        public async Task<bool> SoftRemoveRange(List<TEntity> entities)
-        {
-            foreach (var entity in entities)
-            {
-                entity.IsDeleted = true;
-                entity.DeletedAt = _timeService.GetCurrentTime();
-                entity.DeletedBy = _claimsService.GetCurrentUserId;
-            }
-            _dbSet.UpdateRange(entities);
-            //  await _dbContext.SaveChangesAsync();
-            return true;
-        }
+        entity.IsDeleted = true;
+        entity.DeletedAt = _timeService.GetCurrentTime();
+        entity.DeletedBy = _claimsService.GetCurrentUserId;
+        entity.UpdatedAt = _timeService.GetCurrentTime();
 
-        public async Task<bool> SoftRemoveRangeById(List<Guid> entitiesId) // update hàng loạt cùng 1 trường thì làm y chang
-        {
-            var entities = await _dbSet.Where(e => entitiesId.Contains(e.Id)).ToListAsync();
+        context.Set<TEntity>().Update(entity);
+        await context.SaveChangesAsync();
 
-            foreach (var entity in entities)
-            {
-                entity.IsDeleted = true;
-                entity.DeletedAt = _timeService.GetCurrentTime();
-                entity.DeletedBy = _claimsService.GetCurrentUserId;
-            }
+        return true;
+    }
 
-            _dbContext.UpdateRange(entities);
-            return true;
-        }
+    /// <summary>
+    /// Xóa cứng thực thể
+    /// </summary>
+    public async Task<bool> HardRemoveAsync(TEntity entity)
+    {
+        await using var context = _dbContextFactory.CreateDbContext();
 
-        public async Task<bool> Update(TEntity entity)
-        {
-            entity.UpdatedAt = _timeService.GetCurrentTime();
-            entity.UpdatedBy = _claimsService.GetCurrentUserId;
-            _dbSet.Update(entity);
-            //   await _dbContext.SaveChangesAsync();
-            return true;
-        }
+        context.Set<TEntity>().Remove(entity);
+        await context.SaveChangesAsync();
 
-        public async Task<bool> UpdateRange(List<TEntity> entities)
-        {
-            foreach (var entity in entities)
-            {
-                entity.UpdatedAt = _timeService.GetCurrentTime();
-                entity.UpdatedBy = _claimsService.GetCurrentUserId;
-            }
-            _dbSet.UpdateRange(entities);
-            //  await _dbContext.SaveChangesAsync();
-            return true;
-        }
-
-        public IQueryable<TEntity> GetQueryable()
-        {
-            return _dbSet;
-        }
-
-        public async Task<TEntity?> FirstOrDefaultAsync(
-    Expression<Func<TEntity, bool>> predicate = null,
-    params Expression<Func<TEntity, object>>[] includes)
-        {
-            IQueryable<TEntity> query = _dbSet;
-
-            // Include các navigation properties
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-
-            // Áp dụng predicate (nếu có)
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            // Lấy bản ghi đầu tiên
-            return await query.FirstOrDefaultAsync();
-        }
-
-        public async Task<bool> HardRemove(Expression<Func<TEntity, bool>> predicate)
-        {
-            try
-            {
-                var entities = await _dbSet.Where(predicate).ToListAsync();
-                if (entities.Any())
-                {
-                    _dbSet.RemoveRange(entities);
-                    return true;
-                }
-                return false; // Không có gì để xóa
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error while performing hard remove: {ex.Message}");
-            }
-        }
-
-        public async Task<bool> HardRemoveRange(List<TEntity> entities)
-        {
-            try
-            {
-                if (entities.Any())
-                {
-                    _dbSet.RemoveRange(entities);
-                    return true;
-                }
-                return false; // Không có gì để xóa
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error while performing hard remove range: {ex.Message}");
-            }
-        }
+        return true;
     }
 }

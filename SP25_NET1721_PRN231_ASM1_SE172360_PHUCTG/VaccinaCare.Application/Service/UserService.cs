@@ -163,7 +163,7 @@ namespace VaccinaCare.Application.Service
                     };
                 }
 
-                await _unitOfWork.UserRepository.Update(user);
+                await _unitOfWork.UserRepository.UpdateAsync(user);
                 await _unitOfWork.SaveChangesAsync();
 
                 _logger.Success($"User info updated successfully for UserId: {userId}");

@@ -70,7 +70,7 @@ public class VaccineService : IVaccineService
         vaccine.Description = description;
         vaccine.Price = price;
 
-        await _unitOfWork.VaccineRepository.Update(vaccine);
+        await _unitOfWork.VaccineRepository.UpdateAsync(vaccine);
         await _unitOfWork.SaveChangesAsync();
 
         _logger.Info($"Vaccine {vaccineName} updated successfully.");
@@ -89,7 +89,7 @@ public class VaccineService : IVaccineService
             return false;
         }
 
-        await _unitOfWork.VaccineRepository.SoftRemove(vaccine);
+        await _unitOfWork.VaccineRepository.SoftRemoveAsync(vaccine);
         await _unitOfWork.SaveChangesAsync();
 
         _logger.Error($"Vaccine {vaccine.VaccineName} deleted successfully.");

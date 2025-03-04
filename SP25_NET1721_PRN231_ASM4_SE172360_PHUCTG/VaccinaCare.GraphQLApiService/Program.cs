@@ -10,7 +10,6 @@ using VaccinaCare.GraphQLApiService.Resolvers;
 using VaccinaCare.Repository;
 using VaccinaCare.Repository.Commons;
 using VaccinaCare.Repository.Interfaces;
-using VaccinaCare.Repository.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +39,7 @@ builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<VaccinaCareDbContext>(options =>
+builder.Services.AddPooledDbContextFactory<VaccinaCareDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

@@ -12,6 +12,7 @@ namespace VaccinaCare.API.Resolvers
             _vaccineService = vaccineService;
         }
 
+        [GraphQLName("getAllVaccines")] // Định danh tên chính xác
         public async Task<List<Vaccine>> GetAllVaccines()
         {
             return await _vaccineService.GetAllVaccinesAsync();
