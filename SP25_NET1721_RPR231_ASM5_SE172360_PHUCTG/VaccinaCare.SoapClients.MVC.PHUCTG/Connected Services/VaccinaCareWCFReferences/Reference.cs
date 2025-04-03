@@ -14,7 +14,7 @@ namespace VaccinaCareWCFReferences
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="HealthGuide", Namespace="http://schemas.datacontract.org/2004/07/VaccinaCare.SoapAPIServices.VyNMV.SoapMod" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="HealthGuide", Namespace="http://schemas.datacontract.org/2004/07/VaccinaCare.SoapAPIServices.PHUCTG.SoapMod" +
         "els")]
     public partial class HealthGuide : object
     {
@@ -187,7 +187,7 @@ namespace VaccinaCareWCFReferences
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="HealthGuideCategory", Namespace="http://schemas.datacontract.org/2004/07/VaccinaCare.SoapAPIServices.VyNMV.SoapMod" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="HealthGuideCategory", Namespace="http://schemas.datacontract.org/2004/07/VaccinaCare.SoapAPIServices.PHUCTG.SoapMod" +
         "els")]
     public partial class HealthGuideCategory : object
     {

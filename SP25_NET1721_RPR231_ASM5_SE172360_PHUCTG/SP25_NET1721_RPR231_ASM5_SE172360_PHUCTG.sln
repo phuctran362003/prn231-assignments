@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Services", "Vac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.Repositories", "VaccinaCare.Repositories\VaccinaCare.Repositories.csproj", "{1D5049F4-BD47-4A8A-B169-577E8AFAB7AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.SoapAPIServices.VyNMV", "VaccinaCare.SoapAPIServices.VyNMV\VaccinaCare.SoapAPIServices.VyNMV.csproj", "{D018C490-94C2-4435-B35F-7826B42402E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.SoapAPIServices.PHUCTG", "VaccinaCare.SoapAPIServices.PHUCTG\VaccinaCare.SoapAPIServices.PHUCTG.csproj", "{D018C490-94C2-4435-B35F-7826B42402E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.SoapClients.MVC.VyNMV", "VaccinaCare.SoapClients.MVC.VyNMV\VaccinaCare.SoapClients.MVC.VyNMV.csproj", "{BF797B46-A311-46B6-AC99-1967ABE2A13E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.SoapClients.MVC.PHUCTG", "VaccinaCare.SoapClients.MVC.PHUCTG\VaccinaCare.SoapClients.MVC.PHUCTG.csproj", "{BF797B46-A311-46B6-AC99-1967ABE2A13E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
