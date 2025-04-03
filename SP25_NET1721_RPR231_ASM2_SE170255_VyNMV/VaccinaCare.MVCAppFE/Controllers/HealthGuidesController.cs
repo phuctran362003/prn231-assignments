@@ -65,7 +65,7 @@ public class HealthGuidesController : Controller
             return View(result);
         }
 
-        return View(new List<HealthGuide>());
+        return View(new HealthGuide());
     }
 
     // POST: QuizResults/Delete/id
