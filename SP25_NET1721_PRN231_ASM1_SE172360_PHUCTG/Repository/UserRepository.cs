@@ -6,7 +6,10 @@ namespace Repository;
 
 public class UserRepository : GenericRepository<User>
 {
-    public UserRepository() { }
+    public UserRepository()
+    {
+        
+    }
     public async Task<User> GetUserAccount(string email, string password)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);

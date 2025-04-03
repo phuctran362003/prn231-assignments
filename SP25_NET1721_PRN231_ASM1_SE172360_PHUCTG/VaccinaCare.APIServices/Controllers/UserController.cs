@@ -7,6 +7,7 @@ using Repository.Models;
 using Service;
 
 namespace VaccinaCare.APIServices.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -19,6 +20,7 @@ public class UserController : ControllerBase
         _config = config;
         _userService = userService;
     }
+
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
@@ -31,7 +33,7 @@ public class UserController : ControllerBase
 
         return Ok(token);
     }
-    
+
     private string GenerateJSONWebToken(User userInfo)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -42,7 +44,7 @@ public class UserController : ControllerBase
             , new Claim[]
             {
                 new(ClaimTypes.Email, userInfo.Email),
-                new(ClaimTypes.Role, userInfo.RoleId.ToString()),
+                new(ClaimTypes.Role, userInfo.RoleId.ToString())
             },
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials
@@ -52,8 +54,6 @@ public class UserController : ControllerBase
 
         return tokenString;
     }
-    
+
     public sealed record LoginRequest(string Email, string Password);
-    
-    
 }

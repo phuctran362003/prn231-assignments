@@ -4,5 +4,4 @@ namespace VaccinaCare.APIServices.Controllers;
 
 public class SystemController : ControllerBase
 {
-    
 }

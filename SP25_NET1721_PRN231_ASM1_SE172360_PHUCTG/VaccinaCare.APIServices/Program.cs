@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Repository;
 using Repository.Models;
 using Service;
 
@@ -20,6 +19,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 //DI
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IVaccineService, VaccineService>();
+builder.Services.AddScoped<IVaccineTypeService, VaccineTypeService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -66,15 +67,14 @@ builder.Services.AddSwaggerGen(option =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
-            new string[]{}
+            new string[] { }
         }
     });
 });
-
 
 
 builder.Services.AddControllers();
