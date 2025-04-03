@@ -6,10 +6,6 @@ namespace Repository;
 
 public class VaccineRepository : GenericRepository<Vaccine>
 {
-    public VaccineRepository()
-    {
-        
-    }
     public async Task<List<Vaccine>> GetAll()
     {
         var entities = await _context.Vaccines.Include(x => x.VaccineType).ToListAsync();

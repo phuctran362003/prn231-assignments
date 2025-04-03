@@ -38,6 +38,7 @@ public class VaccinaCareDbContext : DbContext
 
     public virtual DbSet<VaccineType> VaccineTypes { get; set; }
     public virtual DbSet<Vaccine> Vaccines { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<User> Users { get; set; }
 
     #endregion

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Repository.Models;
 using Service;
 
 namespace VaccinaCare.APIServices.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class VaccineController : ControllerBase
@@ -17,7 +17,7 @@ public class VaccineController : ControllerBase
         _configuration = configuration;
         _vaccineService = vaccineService;
     }
-    
+
     // [Authorize(Roles = "1, 2")]
     [HttpGet]
     [EnableQuery]
@@ -46,7 +46,7 @@ public class VaccineController : ControllerBase
     {
         return await _vaccineService.Create(healthGuide);
     }
-    
+
     // [Authorize(Roles = "1, 2")]
     [HttpPut("{id}")]
     public async Task<int> Put(Vaccine healthGuide)

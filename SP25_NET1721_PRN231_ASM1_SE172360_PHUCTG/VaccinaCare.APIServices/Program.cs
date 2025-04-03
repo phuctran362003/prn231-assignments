@@ -1,9 +1,13 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
+using Repository;
 using Repository.Models;
 using Service;
 
@@ -21,6 +25,26 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IVaccineService, VaccineService>();
 builder.Services.AddScoped<IVaccineTypeService, VaccineTypeService>();
+builder.Services.AddScoped<IVaccineTypeService, VaccineTypeService>();
+
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<VaccineRepository>();
+builder.Services.AddScoped<VaccineTypeRepository>();
+
+// OData
+static IEdmModel GetEdmModel()
+{
+    var odataBuilder = new ODataConventionModelBuilder();
+    odataBuilder.EntitySet<Vaccine>("Vaccine"); // EDM - ENTITY DATA MODEL
+    odataBuilder.EntitySet<VaccineType>("VaccineType"); // ENTITY
+    return odataBuilder.GetEdmModel();
+}
+
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.Select().Filter().OrderBy().Expand().SetMaxTop(null).Count();
+    options.AddRouteComponents("odata", GetEdmModel());
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -43,7 +67,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
 
 // Config Swagger Gen
 builder.Services.AddSwaggerGen(option =>
