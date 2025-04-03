@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Repository.Models;
 using Service;
@@ -18,7 +19,7 @@ public class VaccineController : ControllerBase
         _vaccineService = vaccineService;
     }
 
-    // [Authorize(Roles = "1, 2")]
+    [Authorize(Roles = "1, 2")]
     [HttpGet]
     [EnableQuery]
     public async Task<IEnumerable<Vaccine>> Get()

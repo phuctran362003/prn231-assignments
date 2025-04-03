@@ -20,82 +20,48 @@ public class SystemController : ControllerBase
     {
         try
         {
-            // Clear existing data first
             await ClearDatabase(_context);
-
-            // Seed Roles
-            var roles = new List<Role>
-            {
-                new()
-                {
-                    RoleName = "Admin",
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow
-                },
-                new()
-                {
-                    RoleName = "Staff",
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow
-                },
-                new()
-                {
-                    RoleName = "Customer",
-                    IsDeleted = false,
-                    CreatedAt = DateTime.UtcNow
-                }
-            };
-
-            await _context.Roles.AddRangeAsync(roles);
-            await _context.SaveChangesAsync();
-
-            // Get the IDs of the inserted roles for reference
-            var adminRoleId = roles.First(r => r.RoleName == "Admin").Id;
-            var staffRoleId = roles.First(r => r.RoleName == "Staff").Id;
-            var customerRoleId = roles.First(r => r.RoleName == "Customer").Id;
 
             // Seed Users
             var users = new List<User>
             {
                 new()
                 {
-                    Id = Guid.NewGuid(),
                     FullName = "Admin User",
-                    Email = "admin@vaccinacare.com",
+                    Email = "a@gmail.com",
                     Gender = true,
                     DateOfBirth = new DateTime(1990, 1, 1),
                     PhoneNumber = "0987654321",
                     PasswordHash = "1@",
                     ImageUrl = "",
                     RoleName = "Admin",
+                    RoleId = 1,
                     Address = "123 Admin Street, Hanoi",
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
-                    RoleId = adminRoleId
                 },
                 new()
                 {
-                    Id = Guid.NewGuid(),
                     FullName = "Staff Member",
-                    Email = "staff@vaccinacare.com",
+                    Email = "s@gmail.com",
                     Gender = false,
                     DateOfBirth = new DateTime(1995, 5, 15),
                     PhoneNumber = "0912345678",
                     ImageUrl = "",
                     PasswordHash = "1@",
+                    RoleId = 2,
                     RoleName = "Staff",
                     Address = "456 Staff Avenue, Ho Chi Minh City",
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
-                    RoleId = staffRoleId
                 },
                 new()
                 {
-                    Id = Guid.NewGuid(),
                     FullName = "Customer One",
-                    Email = "customer1@example.com",
+                    Email = "c@gmail.com",
                     Gender = true,
                     DateOfBirth = new DateTime(1992, 8, 20),
+                    RoleId = 3,
                     PhoneNumber = "0923456789",
                     ImageUrl = "",
                     PasswordHash = "1@",
@@ -103,11 +69,9 @@ public class SystemController : ControllerBase
                     Address = "789 Customer Blvd, Da Nang",
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
-                    RoleId = customerRoleId
                 },
                 new()
                 {
-                    Id = Guid.NewGuid(),
                     FullName = "Customer Two",
                     Email = "customer2@example.com",
                     Gender = false,
@@ -119,14 +83,14 @@ public class SystemController : ControllerBase
                     Address = "101 Customer Lane, Can Tho",
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
-                    RoleId = customerRoleId
                 }
             };
 
             await _context.Users.AddRangeAsync(users);
             await _context.SaveChangesAsync();
 
-            // Seed VaccineTypes
+
+            #region Seed VaccineTypes
             var vaccineTypes = new List<VaccineType>
             {
                 new() { Name = "Routine", Description = "Vaccines recommended for routine use in children and adults" },
@@ -144,6 +108,9 @@ public class SystemController : ControllerBase
 
             await _context.VaccineTypes.AddRangeAsync(vaccineTypes);
             await _context.SaveChangesAsync();
+            #endregion
+            
+            #region Seed Vaccines
 
             // Get the IDs of the inserted vaccine types for reference
             var routineTypeId = vaccineTypes.First(t => t.Name == "Routine").Id;
@@ -152,7 +119,6 @@ public class SystemController : ControllerBase
             var seasonalTypeId = vaccineTypes.First(t => t.Name == "Seasonal").Id;
             var specialConditionsTypeId = vaccineTypes.First(t => t.Name == "Special Conditions").Id;
 
-            // Seed Vaccines
             var vaccines = new List<Vaccine>
             {
                 new()
@@ -475,6 +441,9 @@ public class SystemController : ControllerBase
             await _context.Vaccines.AddRangeAsync(vaccines);
             await _context.SaveChangesAsync();
 
+            #endregion
+            
+
             return Ok(new { Message = "All data seeded successfully" });
         }
         catch (Exception e)
@@ -493,7 +462,6 @@ public class SystemController : ControllerBase
             var tablesToDelete = new List<Func<Task>>
             {
                 () => context.Users.ExecuteDeleteAsync(),
-                () => context.Roles.ExecuteDeleteAsync(),
                 () => context.Vaccines.ExecuteDeleteAsync(),
                 () => context.VaccineTypes.ExecuteDeleteAsync()
             };

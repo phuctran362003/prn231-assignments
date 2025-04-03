@@ -32,6 +32,23 @@ public class VaccinaCareDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Role>().HasData(
+            new Role
+            {
+                Id = 1,
+                RoleName = "Admin",
+            },
+            new Role
+            {
+                Id = 2,
+                RoleName = "Staff",
+            },
+            new Role
+            {
+                Id = 3,
+                RoleName = "Customer",
+            }
+        );
     }
 
     #region DbSet
