@@ -9,15 +9,15 @@ VALUES
 INSERT INTO Role (RoleName, IsDeleted, CreatedAt, CreatedBy, Id)
 VALUES 
 ('Admin', 0, GETDATE(), NULL, 1),
-('Doctor', 0, GETDATE(), NULL, 2),
-('Patient', 0, GETDATE(), NULL, 3);
+('Staff', 0, GETDATE(), NULL, 2),
+('Customer', 0, GETDATE(), NULL, 3);
 
 -- Insert data into Users table (using square brackets because User is a reserved keyword)
 INSERT INTO [User](Id, FullName, Email, Gender, DateOfBirth, ImageUrl, PhoneNumber, PasswordHash, RoleName, Address, IsDeleted, CreatedAt, RoleId)
 VALUES 
-(NEWID(), 'John Doe', 'john.doe@example.com', 1, '1985-05-15', 'images/john.jpg', '1234567890', 'hashed_password_1', 'Admin', '123 Main St, City', 0, GETDATE(), 1),
-(NEWID(), 'Jane Smith', 'jane.smith@example.com', 0, '1990-08-20', 'images/jane.jpg', '9876543210', 'hashed_password_2', 'Doctor', '456 Oak Ave, Town', 0, GETDATE(), 2),
-(NEWID(), 'Alex Johnson', 'alex.johnson@example.com', 1, '1978-03-10', 'images/alex.jpg', '5555555555', 'hashed_password_3', 'Patient', '789 Pine Blvd, Village', 0, GETDATE(), 3);
+(NEWID(), 'John Doe', 'admin@gmail.com', 1, '1985-05-15', 'images/john.jpg', '1234567890', '1@', 'Admin', '123 Main St, City', 0, GETDATE(), 1),
+(NEWID(), 'Jane Smith', 'staff@gmail.com', 0, '1990-08-20', 'images/jane.jpg', '9876543210', '1@', 'Doctor', '456 Oak Ave, Town', 0, GETDATE(), 2),
+(NEWID(), 'Alex Johnson', 'customer@gmail.com', 1, '1978-03-10', 'images/alex.jpg', '5555555555', '1@', 'Patient', '789 Pine Blvd, Village', 0, GETDATE(), 3);
 
 -- Insert data into HealthGuides table
 INSERT INTO HealthGuides (Title, Content, HealthGuideCategorieId, Author, CreatedAt, IsActive, Views, ImageUrl)
