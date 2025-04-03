@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.APIServices", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{42C58E4A-D5AD-426E-B34B-0EA67197D286}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinaCare.MVCAppFE", "VaccinaCare.MVCAppFE\VaccinaCare.MVCAppFE.csproj", "{6F2424B5-75E2-4325-A466-94CF1EEDFD2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{42C58E4A-D5AD-426E-B34B-0EA67197D286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42C58E4A-D5AD-426E-B34B-0EA67197D286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42C58E4A-D5AD-426E-B34B-0EA67197D286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F2424B5-75E2-4325-A466-94CF1EEDFD2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F2424B5-75E2-4325-A466-94CF1EEDFD2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F2424B5-75E2-4325-A466-94CF1EEDFD2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F2424B5-75E2-4325-A466-94CF1EEDFD2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
